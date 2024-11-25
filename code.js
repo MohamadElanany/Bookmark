@@ -52,7 +52,15 @@ function validateInput(element) {
         name: /^[a-zA-Z0-9_][a-zA-Z0-9\s_]+[a-zA-Z0-9_]$/,
         link: /^(https?:\/\/)(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/,
     };
-    if (regax[element.id].test(element.value)){
+
+    var test = true;
+        for(var i=0 ; i<bookList.length ; i++){
+            if(bookList[i].name == element.value && element.id == "name"){
+                test = false;
+            }
+        }
+        
+    if (regax[element.id].test(element.value) && test){
         element.classList.add("is-valid");
         element.classList.remove("is-invalid");
         element.nextElementSibling.classList.add("d-none");
@@ -62,22 +70,7 @@ function validateInput(element) {
         element.classList.remove("is-valid");
         element.nextElementSibling.classList.remove("d-none");
     }
-    var test = false;
-        for(var i=0 ; i<bookList.length ; i++){
-            if(bookList[i].name == element.value && element.id == "name"){
-                test = true;
-            }
-        }
-        if(test){
-            element.classList.add("is-invalid");
-            element.classList.remove("is-valid");
-            element.nextElementSibling.classList.remove("d-none");
-        }
-        else {
-            element.classList.add("is-valid");
-            element.classList.remove("is-invalid");
-            element.nextElementSibling.classList.add("d-none");
-        }
+    
 }
 
 function closeCard(){
